@@ -16,6 +16,9 @@ public class Book {
     private int id;
     private String nome;
 
+    public Book() {
+    }
+
     public Book(final int id, final String nome) {
         this.id = id;
         this.nome = nome;
