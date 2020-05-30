@@ -30,4 +30,9 @@ public class BookDao {
         oldBook.setNome(newBook.getNome());
         entityManager.merge(oldBook);
     }
+
+    public void delete(int id) {
+        final Book book = this.getById(id);
+        entityManager.remove(book);
+    }
 }

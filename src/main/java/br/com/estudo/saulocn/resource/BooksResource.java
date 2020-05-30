@@ -3,6 +3,7 @@ package br.com.estudo.saulocn.resource;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -52,7 +53,14 @@ public class BooksResource {
         bookDao.update(id, book);
         UriBuilder builder = uriInfo.getAbsolutePathBuilder();
         builder.path(Integer.toString(book.getId()));
-        return Response.status(200).build();
+        return Response.status(204).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response update(@PathParam("id") int id, @Context UriInfo uriInfo) {
+        bookDao.delete(id);
+        return Response.status(204).build();
     }
 
 
