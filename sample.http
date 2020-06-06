@@ -40,5 +40,5 @@ Content-Type: application/json
 
 
 ###
-POST http://localhost:8080/jakarta-ee-project/rest/order/send-to-payment/1602
+POST http://localhost:8080/jakarta-ee-project/rest/order/pay/6652
 

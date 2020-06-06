@@ -14,10 +14,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
-import br.com.estudo.saulocn.jms.OrderPaymentProducer;
-import br.com.estudo.saulocn.dao.BookDao;
-import br.com.estudo.saulocn.dao.OrderDao;
+import br.com.estudo.saulocn.exceptions.PaymentErrorException;
 import br.com.estudo.saulocn.model.Order;
+import br.com.estudo.saulocn.service.OrderService;
 
 @Path("order")
 @Produces(MediaType.APPLICATION_JSON)
@@ -25,33 +24,25 @@ import br.com.estudo.saulocn.model.Order;
 public class OrderResource {
 
     @Inject
-    private BookDao bookDao;
-
-    @Inject
-    private OrderDao orderDao;
-
-    @Inject
-    OrderPaymentProducer orderPaymentProducer;
+    private OrderService orderService;
 
     @GET
     public List<Order> list() {
-        return orderDao.list();
+        return orderService.list();
     }
 
     @POST
     public Response buy(final Order order, @Context final UriInfo uriInfo) {
-        order.setPaid(false);
-        orderDao.save(order);
+        orderService.buy(order);
         final UriBuilder builder = uriInfo.getAbsolutePathBuilder();
         builder.path(Integer.toString(order.getId()));
         return Response.created(builder.build()).build();
     }
 
     @POST
-    @Path("send-to-payment/{id}")
-    public Response sendToPayment(@PathParam("id") final int id) {
-        final Order order = orderDao.getById(id);
-        orderPaymentProducer.sendToPayment(order);
+    @Path("pay/{id}")
+    public Response sendToPayment(@PathParam("id") final int id) throws PaymentErrorException {
+        orderService.sendToPayment(id);
         return Response.ok().build();
     }
 
