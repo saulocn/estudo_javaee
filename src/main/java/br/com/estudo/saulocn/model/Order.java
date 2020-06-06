@@ -14,9 +14,11 @@ import javax.persistence.Table;
 @Table(name = "book_order")
 public class Order implements Serializable {
 
+    public static final String JMS_ORDER_PAYMENT_QUEUE = "java:/jms/queue/PaymentQueue";
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_order")
-    @SequenceGenerator(name = "sq_order", sequenceName = "sq_order")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_books_order")
+    @SequenceGenerator(name = "sq_books_order", sequenceName = "sq_books_order")
     private int id;
 
     @ManyToOne

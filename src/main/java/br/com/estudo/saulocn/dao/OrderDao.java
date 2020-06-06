@@ -38,4 +38,9 @@ public class OrderDao {
         final Order order = this.getById(id);
         entityManager.remove(order);
     }
+
+    public void pay(final Order order) {
+        order.setPaid(true);
+        update(order);
+    }
 }

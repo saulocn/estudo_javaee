@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
-import br.com.estudo.saulocn.OrderPaymentProducer;
+import br.com.estudo.saulocn.jms.OrderPaymentProducer;
 import br.com.estudo.saulocn.dao.BookDao;
 import br.com.estudo.saulocn.dao.OrderDao;
 import br.com.estudo.saulocn.model.Order;

@@ -1,4 +1,4 @@
-package br.com.estudo.saulocn;
+package br.com.estudo.saulocn.jms;
 
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -17,7 +17,7 @@ public class OrderPaymentProducer {
     @JMSConnectionFactory("java:jboss/DefaultJMSConnectionFactory")
     private JMSContext context;
 
-    @Resource(mappedName = "java:/jms/queue/PaymentQueue")
+    @Resource(mappedName = Order.JMS_ORDER_PAYMENT_QUEUE)
     private Queue queue;
 
     @Inject
@@ -25,8 +25,9 @@ public class OrderPaymentProducer {
 
     public void sendToPayment(final Order order){
         final JMSProducer producer = context.createProducer();
-        producer.send(queue, order);
         orderDao.sendToPayment(order);
+        System.out.println("Enviando pedido para o pagamento:"+order.getId());
+        producer.send(queue, order);
     }
 
 }
