@@ -2,7 +2,7 @@ POSTGRES_DRIVER_VERSION=42.2.12
 JBOSS_HOME=/opt/jboss/wildfly
 JBOSS_CLI=$JBOSS_HOME/bin/jboss-cli.sh
 JBOSS_MODE=${1:-"standalone"}
-JBOSS_CONFIG=${2:-"$JBOSS_MODE.xml"}
+JBOSS_CONFIG=${2:-"$JBOSS_MODE-full.xml"}
 
 cd /tmp
 curl -O https://jdbc.postgresql.org/download/postgresql-$POSTGRES_DRIVER_VERSION.jar
@@ -54,3 +54,10 @@ EOF
 
 
 rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history
+
+echo "=> Shutting down WildFly"
+if [ "$JBOSS_MODE" = "standalone" ]; then
+  $JBOSS_CLI -c ":shutdown"
+else
+  $JBOSS_CLI -c "/host=*:shutdown"
+fi

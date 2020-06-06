@@ -29,36 +29,35 @@ public class BooksResource {
 
     @GET
     public List<Book> list() {
-        final List<Book> list = bookDao.list();
-        return list;
+        return bookDao.list();
     }
 
     @POST
-    public Response salvar(Book book, @Context UriInfo uriInfo) {
+    public Response salvar(final Book book, @Context final UriInfo uriInfo) {
         bookDao.save(book);
-        UriBuilder builder = uriInfo.getAbsolutePathBuilder();
+        final UriBuilder builder = uriInfo.getAbsolutePathBuilder();
         builder.path(Integer.toString(book.getId()));
         return Response.created(builder.build()).build();
     }
 
     @GET
     @Path("/{id}")
-    public Book get(@PathParam("id") int id) {
+    public Book get(@PathParam("id") final int id) {
         return bookDao.getById(id);
     }
 
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") int id, Book book,  @Context UriInfo uriInfo) {
+    public Response update(@PathParam("id") final int id, final Book book,  @Context final UriInfo uriInfo) {
         bookDao.update(id, book);
-        UriBuilder builder = uriInfo.getAbsolutePathBuilder();
+        final UriBuilder builder = uriInfo.getAbsolutePathBuilder();
         builder.path(Integer.toString(book.getId()));
         return Response.status(204).build();
     }
 
     @DELETE
     @Path("/{id}")
-    public Response update(@PathParam("id") int id, @Context UriInfo uriInfo) {
+    public Response update(@PathParam("id") final int id, @Context final UriInfo uriInfo) {
         bookDao.delete(id);
         return Response.status(204).build();
     }

@@ -1,0 +1,66 @@
+###
+GET http://localhost:8080/jakarta-ee-project/rest/books/
+
+###
+GET http://localhost:8080/jakarta-ee-project/rest/books/11
+
+###
+POST http://localhost:8080/jakarta-ee-project/rest/books/
+Content-Type: application/json
+
+{
+    "nome":"Teste"
+}
+
+
+###
+PUT http://localhost:8080/jakarta-ee-project/rest/books/11
+Content-Type: application/json
+
+{
+    "nome":"Teste 2"
+}
+
+
+### ORDER ###
+
+###
+GET http://localhost:8080/jakarta-ee-project/rest/order/
+
+
+###
+POST http://localhost:8080/jakarta-ee-project/rest/order/
+Content-Type: application/json
+
+{
+    "book":{
+        "id": 1
+    }
+}
+
+
+
+###
+POST http://localhost:8080/jakarta-ee-project/rest/order/send-to-payment/1
+
+
+jms-queue add --queue-address=PaymentQueue --entries=java:/jms/queue/PaymentQueue
+
+
+
+module add --name=org.postgres --resources=/tmp/postgresql-42.2.12.jar --dependencies=javax.api,javax.transaction.api
+
+/subsystem=datasources/jdbc-driver=postgres:add(driver-name="postgres",driver-module-name="org.postgres",driver-class-name=org.postgresql.Driver)
+
+data-source add \
+  --jndi-name=java:/booksDS \
+  --name=booksDS \
+  --connection-url=jdbc:postgresql://ms_pg:5432/books \
+  --driver-name=postgres \
+  --user-name=postgres \
+  --password=postgres \
+  --check-valid-connection-sql="SELECT 1" \
+  --background-validation=true \
+  --background-validation-millis=60000 \
+  --flush-strategy=IdleConnections \
+  --min-pool-size=1 --max-pool-size=2  --pool-prefill=false
