@@ -2,7 +2,7 @@
 
 Projeto para estudo do Jakarta EE.
 
-Neste projeto, podemos visualizar uma aplicação que utiliza a imagem em Docker do [Wildfly](https://hub.docker.com/r/jboss/wildfly) e,
+Neste projeto, podemos visualizar uma aplicação que utiliza a imagem em Docker do ![Wildfly](https://hub.docker.com/r/jboss/wildfly) e,
 neste container, são configurados um Datasource para um banco de dados PostgreSQL
 utlizado no projeto e uma fila JMS.
 
@@ -47,7 +47,7 @@ Este modelo é utlizado quando não desejamos que o método seja executad dentro de
 
 ## Modelos não exemplificados no projeto:
 
-Outros modelos transacionais podem ser utilizados, como [encontrado no site](https://lucianomolinari.wordpress.com/2012/04/04/entendendo-os-atributos-de-transacao/):
+Outros modelos transacionais podem ser utilizados, como ![encontrado no site](https://lucianomolinari.wordpress.com/2012/04/04/entendendo-os-atributos-de-transacao/):
 
 ### REQUIRES_NEW
 
