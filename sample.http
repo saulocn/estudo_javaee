@@ -28,17 +28,18 @@ Content-Type: application/json
 GET http://localhost:8080/jakarta-ee-project/rest/order/
 
 
+
 ###
 POST http://localhost:8080/jakarta-ee-project/rest/order/
 Content-Type: application/json
 
 {
     "book":{
-        "id": 1
+        "id": 3252
     }
 }
 
 
 ###
-POST http://localhost:8080/jakarta-ee-project/rest/order/pay/6703
+POST http://localhost:8080/jakarta-ee-project/rest/order/pay/8352
 

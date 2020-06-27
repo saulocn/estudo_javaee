@@ -87,7 +87,7 @@ queue: delete-queue
 	@echo -------------------------------------------
 	@echo ------- INICIANDO FILA --------------------
 	@echo -------------------------------------------
-	docker stop queue-jee || true && docker rm -f queue-jee || true && docker run -d --network javaee_network -p 8085:8080 -p 9995:9990 --name queue-jee saulocn/queue-jee
+	docker stop queue-jee || true && docker rm -f queue-jee || true && docker run -d --network javaee_network -p 8085:8080 -p 9995:9990 -p 5445:5445 --name queue-jee saulocn/queue-jee
 	@echo -------------------------------------------
 	@echo ------ FINALIZANDO FILA -------------------
 	@echo -------------------------------------------
