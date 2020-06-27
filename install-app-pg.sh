@@ -20,12 +20,6 @@ $JBOSS_HOME/bin/$JBOSS_MODE.sh -b 0.0.0.0 -c $JBOSS_CONFIG &
 echo "=> Waiting for the server to boot"
 wait_for_server
 
-echo "Configurando JBOS Datasource para ${DATASOURCE_JNDI}"
-echo "Datasource name ${DATASOURCE_NAME}"
-echo "DB_HOST ${DB_HOST}"
-echo "DB_PORT ${DB_PORT}"
-echo "DB_NAME ${DB_NAME}"
-
 
 $JBOSS_CLI -c << EOF
 batch

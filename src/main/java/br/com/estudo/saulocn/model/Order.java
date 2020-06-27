@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "book_order")
 public class Order implements Serializable {
 
-    public static final String JMS_ORDER_PAYMENT_QUEUE = "java:/jms/queue/PaymentQueue";
+    public static final String JMS_ORDER_PAYMENT_QUEUE = "java:jboss/exported/jms/queue/PaymentQueue";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_books_order")
