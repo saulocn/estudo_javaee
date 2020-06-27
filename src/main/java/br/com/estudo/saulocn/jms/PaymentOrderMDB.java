@@ -6,11 +6,11 @@ import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 
 import br.com.estudo.saulocn.dao.OrderDao;
 import br.com.estudo.saulocn.model.Order;
-
-import org.jboss.annotation.ejb.ResourceAdapter;
 
 
 @MessageDriven(activationConfig = {
@@ -28,7 +28,9 @@ public class PaymentOrderMDB implements MessageListener {
 
     @Override public void onMessage(final Message message) {
         try {
-            final Order order = message.getBody(Order.class);
+            final String jsonOrder = message.getBody(String.class);
+            final Jsonb jsonb = JsonbBuilder.create();
+            final Order order = jsonb.fromJson(jsonOrder, Order.class);
             System.out.println("Pagando o pedido:"+ order.getId());
             orderDao.pay(order);
         } catch (JMSException e) {

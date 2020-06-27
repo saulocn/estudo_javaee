@@ -40,8 +40,6 @@ jms-queue add --queue-address=$QUEUE_NAME --entries=queue/$QUEUE_NAME java:jboss
 run-batch
 EOF
 
-
-
 rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history
 
 echo "=> Shutting down WildFly"

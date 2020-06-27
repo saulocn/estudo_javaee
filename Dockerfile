@@ -9,15 +9,18 @@ ENV DB_NAME books
 ENV DATASOURCE_NAME booksDS
 ENV DATASOURCE_JNDI java:/booksDS
 
-COPY --chown=1001:0  install_pg.sh  /tmp/
+COPY --chown=1001:0  install-client-queue.sh  /tmp/
+COPY --chown=1001:0  install-app-pg.sh  /tmp/
 
 
 user root
-RUN chmod +x /tmp/install_pg.sh
+RUN chmod +x /tmp/install-app-pg.sh
+RUN chmod +x /tmp/install-client-queue.sh
 RUN echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
 
 user jboss
-RUN /tmp/install_pg.sh
+RUN /tmp/install-app-pg.sh
+RUN /tmp/install-client-queue.sh
 RUN /opt/jboss/wildfly/bin/add-user.sh admin Admin#007 --silent
 RUN chown -R jboss:jboss /opt/jboss/wildfly/
 

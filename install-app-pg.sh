@@ -20,12 +20,6 @@ $JBOSS_HOME/bin/$JBOSS_MODE.sh -b 0.0.0.0 -c $JBOSS_CONFIG &
 echo "=> Waiting for the server to boot"
 wait_for_server
 
-echo "Configurando JBOS Datasource para ${DATASOURCE_JNDI}"
-echo "Datasource name ${DATASOURCE_NAME}"
-echo "DB_HOST ${DB_HOST}"
-echo "DB_PORT ${DB_PORT}"
-echo "DB_NAME ${DB_NAME}"
-
 
 $JBOSS_CLI -c << EOF
 batch
@@ -33,15 +27,6 @@ batch
 module add --name=org.postgres --resources=/tmp/postgresql-$POSTGRES_DRIVER_VERSION.jar --dependencies=javax.api,javax.transaction.api
 
 /subsystem=datasources/jdbc-driver=postgres:add(driver-name="postgres",driver-module-name="org.postgres",driver-class-name=org.postgresql.Driver)
-
-/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-artemis:add(host=queue-jee, port=5445)
-
-/subsystem=messaging-activemq/server=default/remote-connector=remote-artemis:add(socket-binding=remote-artemis) 
-
-/subsystem=messaging-activemq/server=default/pooled-connection-factory=remote-artemis:add(connectors=[remote-artemis], entries=[java:/jms/PaymentQueueCF],user="user123", password="Password123")
-
-jms-queue add --queue-address=PaymentQueue --entries=[queue/PaymentQueue,java:jboss/exported/jms/queue/PaymentQueue]
-
 
 data-source add \
   --jndi-name=$DATASOURCE_JNDI \
